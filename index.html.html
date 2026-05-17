@@ -424,6 +424,58 @@
       .name { font-size: clamp(1.8rem, 5vw, 2.4rem); }
     }
 
+    /* ── PROJECTS ── */
+    .projects-grid { display: flex; flex-direction: column; gap: 16px; }
+    .project-item {
+      padding: 18px 20px;
+      border-left: 3px solid var(--rose);
+      background: var(--warm);
+      border-radius: 0 6px 6px 0;
+      transition: all .2s;
+    }
+    .project-item:hover {
+      background: rgba(212,160,167,.15);
+      border-left-color: var(--deep);
+      transform: translateY(-2px);
+    }
+    .project-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+    }
+    .project-title {
+      font-size: .88rem; font-weight: 600; color: var(--charcoal);
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .project-title:hover {
+      color: var(--deep);
+      border-bottom-color: var(--rose);
+    }
+    .project-badge {
+      display: inline-block;
+      font-size: .7rem; font-weight: 600;
+      color: #fff;
+      background: var(--rose);
+      padding: 4px 10px; border-radius: 4px;
+      text-decoration: none;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .project-badge:hover {
+      background: var(--deep);
+      transform: translateX(2px);
+    }
+    .project-desc {
+      font-size: .8rem; color: var(--mid);
+      margin: 8px 0; line-height: 1.6; font-style: italic;
+    }
+    .project-tags {
+      display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0;
+    }
+    .project-year {
+      font-size: .68rem; color: var(--rose); font-weight: 500; margin-top: 8px;
+    }
+
     /* ── PRINT BUTTON ── */
     .print-btn {
       position: fixed; bottom: 28px; right: 28px;
@@ -549,7 +601,7 @@
         </div>
         <div class="tl-meta">
           <div class="tl-place">Bandung, Jawa Barat</div>
-          <div class="tl-date">Present</div>
+          <div class="tl-date">2024 – Present</div>
         </div>
       </div>
       <div class="tl-item">
@@ -641,6 +693,26 @@
         <a href="https://drive.google.com/file/d/1H4XzVJxZ2iaMiEJh3Wa01cXdkVG6Qf7N/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="exp-role clickable-link">Vocational High School Computer Science Teacher<span class="link-icon">🔗</span></a>
         <div class="exp-org">Community Service — Volunteering in a Village</div>
         <div class="exp-year">2025</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PROJECTS & PORTFOLIO ── -->
+  <div class="section">
+    <h2><span class="dot"></span>Projects & Portfolio</h2>
+    <div class="projects-grid">
+      <div class="project-item">
+        <div class="project-header">
+          <a href="https://web-tubes.vercel.app/index.html" target="_blank" rel="noopener noreferrer" class="project-title clickable-link">Web Portfolio Project<span class="link-icon">🔗</span></a>
+          <a href="https://web-tubes.vercel.app/index.html" target="_blank" rel="noopener noreferrer" class="project-badge">Live Demo →</a>
+        </div>
+        <div class="project-desc">/* Add project description here */</div>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <div class="project-year">2025</div>
       </div>
     </div>
   </div>
