@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Afni Alya Putri — CV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blush:    #f5e6e8;
+      --rose:     #d4a0a7;
+      --deep:     #9b6b72;
+      --mauve:    #c49aa0;
+      --cream:    #fdf8f5;
+      --warm:     #f9f6f4;
+      --charcoal: #2c2a2a;
+      --mid:      #5a4f50;
+      --soft:     #8a7a7d;
+      --line:     #f0e5e7;
+      --white:    #fafafa;
+      --link:     #9b6b72;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: .4;
+    }
+
+    /* ── DECORATIVE BG BLOBS ── */
+    .blob {
+      position: fixed; border-radius: 50%;
+      filter: blur(80px); pointer-events: none; z-index: 0;
+    }
+    .blob-1 { width: 500px; height: 500px; background: rgba(212,160,167,.18); top: -120px; right: -100px; }
+    .blob-2 { width: 380px; height: 380px; background: rgba(196,154,160,.14); bottom: 10%; left: -80px; }
+    .blob-3 { width: 300px; height: 300px; background: rgba(245,230,232,.25); top: 40%; right: 5%; }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      position: relative; z-index: 1;
+      max-width: 950px; margin: 0 auto;
+      padding: 60px 32px 80px;
+    }
+
+    /* ── LINK STYLING ── */
+    a {
+      color: var(--link);
+      text-decoration: none;
+      transition: all .2s ease;
+    }
+    a:hover {
+      text-decoration: underline;
+      opacity: .85;
+    }
+    .clickable-link {
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s, color .2s;
+    }
+    .clickable-link:hover {
+      border-bottom-color: var(--rose);
+      color: var(--deep);
+    }
+    .link-icon {
+      font-size: .75em;
+      margin-left: 4px;
+      opacity: 0;
+      transition: opacity .2s;
+      display: inline-block;
+    }
+    .clickable-link:hover .link-icon {
+      opacity: 1;
+    }
+
+    /* ── HEADER ── */
+    header {
+      text-align: center;
+      padding: 48px 40px 40px;
+      background: linear-gradient(160deg, rgba(255,255,255,.9) 0%, rgba(250,246,244,.7) 100%);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp .8s ease both;
+    }
+
+    header::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--rose), var(--mauve), var(--blush), var(--rose));
+    }
+
+    .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      letter-spacing: .08em;
+      color: var(--charcoal);
+      line-height: 1.15;
+      margin: 8px 0;
+    }
+
+    .name em { font-style: italic; color: var(--rose); font-weight: 400; }
+
+    .tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .72rem;
+      font-weight: 400;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-top: 6px;
+    }
+
+    .contact-row {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 20px;
+      margin-top: 18px;
+    }
+
+    .contact-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .75rem; color: var(--mid);
+    }
+
+    .contact-item svg { width: 12px; height: 12px; flex-shrink: 0; stroke: var(--rose); }
+    .contact-item a { color: var(--mid); text-decoration: none; }
+    .contact-item a:hover { color: var(--deep); text-decoration: underline; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex; align-items: center; gap: 14px;
+      margin: 36px 0 28px;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--line); }
+    .divider-icon { font-size: .9rem; color: var(--rose); }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .65rem; font-weight: 500;
+      letter-spacing: .35em; text-transform: uppercase;
+      color: var(--rose);
+    }
+
+    /* ── SECTION CARD ── */
+    .section {
+      background: rgba(250,246,244,.8);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(6px);
+      animation: fadeUp .7s ease both;
+    }
+
+    .section h2 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      color: var(--charcoal);
+      margin-bottom: 22px;
+      display: flex; align-items: center; gap: 10px;
+      text-transform: uppercase;
+    }
+
+    .section h2 .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--rose); flex-shrink: 0;
+    }
+
+    .section h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    /* ── SUMMARY ── */
+    .summary-text {
+      font-size: .85rem; line-height: 1.8;
+      color: var(--mid); font-weight: 300;
+    }
+
+    /* ── SKILLS GRID ── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 20px;
+    }
+
+    .skill-cat {
+      /* skill category container style */
+      display: block;
+    }
+    .skill-cat-title {
+      font-size: .7rem; font-weight: 600;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 10px;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      font-size: .75rem; font-weight: 400;
+      color: var(--mid);
+      background: var(--blush);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 5px 12px;
+      transition: all .2s;
+    }
+    .tag:hover { background: var(--rose); color: #fff; border-color: var(--rose); }
+
+    /* ── TIMELINE ITEMS ── */
+    .timeline { display: flex; flex-direction: column; gap: 24px; }
+
+    .tl-item {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 4px 16px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .tl-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .tl-main {
+      /* timeline item main content area */
+      flex: 1;
+    }
+    .tl-role {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem; font-weight: 600;
+      color: var(--charcoal);
+    }
+    .tl-org {
+      font-size: .76rem; color: var(--soft);
+      margin-top: 3px; font-style: italic;
+    }
+    .tl-desc {
+      font-size: .8rem; color: var(--mid);
+      margin-top: 6px; line-height: 1.7;
+    }
+    .tl-desc .clickable-link {
+      color: var(--link);
+      border-bottom: 1px solid transparent;
+    }
+    .tl-desc .clickable-link:hover {
+      border-bottom-color: var(--rose);
+      color: var(--deep);
+    }
+
+    .tl-meta { text-align: right; }
+    .tl-place {
+      font-size: .7rem; color: var(--soft);
+      font-weight: 500; letter-spacing: .05em;
+    }
+    .tl-date {
+      font-size: .68rem; color: var(--rose);
+      margin-top: 4px; font-weight: 500;
+    }
+
+    /* ── AWARDS ── */
+    .awards-list { display: flex; flex-direction: column; gap: 18px; }
+    .award-item { display: flex; align-items: flex-start; gap: 12px; }
+    .award-gem {
+      width: 7px; height: 7px; border-radius: 1px;
+      background: linear-gradient(135deg, var(--rose), var(--mauve));
+      transform: rotate(45deg); flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .award-title {
+      font-size: .88rem; font-weight: 500; color: var(--charcoal);
+    }
+    .award-title.clickable-link {
+      color: var(--link);
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+    }
+    .award-title.clickable-link:hover {
+      color: var(--deep);
+      border-bottom-color: var(--rose);
+    }
+    .award-org { font-size: .74rem; color: var(--soft); margin-top: 3px; }
+    .award-year { font-size: .68rem; color: var(--rose); margin-top: 2px; font-weight: 500; }
+
+    /* ── SOCIAL ── */
+    .social-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+    .social-chip {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .76rem; color: var(--mid);
+      background: var(--warm);
+      border: 1px solid var(--line); border-radius: 6px;
+      padding: 8px 14px;
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .social-chip:hover { 
+      background: var(--rose); 
+      color: #fff; 
+      border-color: var(--rose);
+      transform: translateY(-1px);
+    }
+    .social-chip svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── CERT ── */
+    .cert-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 18px;
+      background: var(--blush); border-radius: 8px;
+      margin-bottom: 14px;
+      transition: background .2s;
+    }
+    .cert-item:hover {
+      background: rgba(212,160,167,.25);
+    }
+    .cert-badge {
+      width: 36px; height: 36px; border-radius: 6px;
+      background: linear-gradient(135deg, var(--rose), var(--deep));
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .cert-badge svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2; }
+    .cert-title { font-size: .88rem; font-weight: 600; color: var(--charcoal); }
+    .cert-title.clickable-link {
+      color: var(--link);
+      border-bottom: 1px solid transparent;
+    }
+    .cert-title.clickable-link:hover {
+      border-bottom-color: var(--rose);
+      color: var(--deep);
+    }
+    .cert-sub { font-size: .74rem; color: var(--soft); margin-top: 3px; }
+    .cert-year { font-size: .68rem; color: var(--rose); margin-top: 3px; font-weight: 500; }
+
+    /* ── EXPERIENCE ── */
+    .exp-grid { display: flex; flex-direction: column; gap: 16px; }
+    .exp-item {
+      padding: 16px 18px;
+      border-left: 3px solid var(--rose);
+      background: var(--warm);
+      border-radius: 0 6px 6px 0;
+      transition: all .2s;
+    }
+    .exp-item:hover {
+      background: rgba(212,160,167,.15);
+      border-left-color: var(--deep);
+    }
+    .exp-role { 
+      font-size: .88rem; font-weight: 600; color: var(--charcoal);
+    }
+    .exp-role.clickable-link {
+      color: var(--link);
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+    }
+    .exp-role.clickable-link:hover {
+      border-bottom-color: var(--rose);
+      color: var(--deep);
+    }
+    .exp-org { font-size: .74rem; color: var(--soft); margin-top: 3px; font-style: italic; }
+    .exp-year { font-size: .68rem; color: var(--rose); margin-top: 4px; font-weight: 500; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section:nth-child(1) { animation-delay: .05s; }
+    .section:nth-child(2) { animation-delay: .12s; }
+    .section:nth-child(3) { animation-delay: .19s; }
+    .section:nth-child(4) { animation-delay: .26s; }
+    .section:nth-child(5) { animation-delay: .33s; }
+    .section:nth-child(6) { animation-delay: .40s; }
+    .section:nth-child(7) { animation-delay: .47s; }
+
+    /* ── PRINT ── */
+    @media print {
+      .blob, body::before { display: none; }
+      body { background: #fff; }
+      .section { 
+        background: #fff;
+        border-color: #ddd;
+        page-break-inside: avoid;
+      }
+      header {
+        background: #fff;
+        border-color: #ddd;
+      }
+      .link-icon { display: none; }
+      .clickable-link {
+        color: var(--link);
+        text-decoration: underline;
+      }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .wrapper { padding: 30px 16px 60px; }
+      header { padding: 36px 20px 28px; }
+      .section { padding: 24px 18px; }
+      .tl-item { grid-template-columns: 1fr; }
+      .tl-meta { text-align: left; display: flex; gap: 8px; align-items: center; margin-top: 6px; }
+      .tl-date { margin-top: 0; }
+      .contact-item { font-size: .7rem; }
+      .name { font-size: clamp(1.8rem, 5vw, 2.4rem); }
+    }
+
+    /* ── PRINT BUTTON ── */
+    .print-btn {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--rose), var(--deep));
+      border: none; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(155,107,114,.35);
+      transition: transform .2s, box-shadow .2s;
+      z-index: 999;
+    }
+    .print-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(155,107,114,.45); }
+    .print-btn svg { width: 20px; height: 20px; stroke: #fff; }
+    @media print { .print-btn { display: none; } }
+  </style>
+</head>
+<body>
+
+<!-- Blobs -->
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="wrapper">
+
+  <!-- ── HEADER ── -->
+  <header>
+    <p class="tagline">Curriculum Vitae</p>
+    <h1 class="name">Afni <em>Alya</em> Putri</h1>
+    <p class="tagline" style="margin-top:10px">Computer Science Education · Digital Marketing · Leadership</p>
+
+    <div class="contact-row">
+      <span class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Bandung, Indonesia
+      </span>
+      <span class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.02 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +62 812 6525 6913
+      </span>
+      <span class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <a href="mailto:afnia807@gmail.com">afnia807@gmail.com</a>
+      </span>
+      <span class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        <a href="#">afni alya putri</a>
+      </span>
+    </div>
+  </header>
+
+  <!-- ── PROFESSIONAL SUMMARY ── -->
+  <div class="section">
+    <h2><span class="dot"></span>Professional Summary</h2>
+    <p class="summary-text">
+      A Computer Science Education student with a highly adaptable profile who integrates technical logic with creative communication. 
+      I have a proven track record in digital marketing and content creation, as well as strategic experience as a brand ambassador. 
+      As a division leader in a student organization, I excel in project management, team collaboration, and innovative problem-solving. 
+      Backed by persuasive public speaking skills, I am committed to making a tangible contribution in the fields of education, 
+      community empowerment, and the creative industry.
+    </p>
+  </div>
+
+  <!-- ── TECHNICAL SKILLS ── -->
+  <div class="section">
+    <h2><span class="dot"></span>Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <div class="skill-cat-title">Digital Marketing</div>
+        <div class="skill-tags">
+          <span class="tag">Content Strategy</span>
+          <span class="tag">Social Media Mgmt</span>
+          <span class="tag">Personal Branding</span>
+          <span class="tag">Copywriting</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Production</div>
+        <div class="skill-tags">
+          <span class="tag">On-camera Talent</span>
+          <span class="tag">Short-form Video</span>
+          <span class="tag">Campaign Mgmt</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Design & Multimedia</div>
+        <div class="skill-tags">
+          <span class="tag">UI/UX (Canva, Figma)</span>
+          <span class="tag">3D Modeling (Blender)</span>
+          <span class="tag">Video Editing</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Programming</div>
+        <div class="skill-tags">
+          <span class="tag">C#</span>
+          <span class="tag">PHP</span>
+          <span class="tag">MySQL</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Soft Skills</div>
+        <div class="skill-tags">
+          <span class="tag">Public Speaking</span>
+          <span class="tag">Team Collaboration</span>
+          <span class="tag">Project Management</span>
+          <span class="tag">Leadership</span>
+          <span class="tag">Public Relations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EDUCATION ── -->
+  <div class="section">
+    <h2><span class="dot"></span>Education</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-main">
+          <div class="tl-role">Bachelor's Degree, Computer Science Education</div>
+          <div class="tl-org">Universitas Pendidikan Indonesia</div>
+          <div class="tl-desc">GPA: <strong>3.82 / 4.00</strong></div>
+        </div>
+        <div class="tl-meta">
+          <div class="tl-place">Bandung, Jawa Barat</div>
+          <div class="tl-date">Present</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-main">
+          <div class="tl-role">Science Major — Senior High School</div>
+          <div class="tl-org">Madrasah Aliyah Negeri Pematangsiantar</div>
+          <div class="tl-desc">Final Grade: <strong>91.95 / 100</strong></div>
+        </div>
+        <div class="tl-meta">
+          <div class="tl-place">Sumatra Utara</div>
+          <div class="tl-date">2021 – 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ORGANIZATION ── -->
+  <div class="section">
+    <h2><span class="dot"></span>Organization</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-main">
+          <div class="tl-role">Head of Business Outreach</div>
+          <div class="tl-org">BEM KEMAKOM FPMIPA UPI (Computer Science Student Association)</div>
+          <div class="tl-desc">Managing marketing in the field of organizational economics and business.</div>
+        </div>
+        <div class="tl-meta">
+          <div class="tl-place">Bandung</div>
+          <div class="tl-date">Present</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-main">
+          <div class="tl-role">Secretary</div>
+          <div class="tl-org">BEM KEMAKOM FPMIPA UPI (Computer Science Student Association)</div>
+          <div class="tl-desc"><a href="https://drive.google.com/file/d/199yW1tta58pEStcR7Q1t9w07B0ZDBjeA/view" target="_blank" rel="noopener noreferrer" class="clickable-link">Selected as the best staff member of the Talent and Interest Development Division in Monitoring and Evaluation (MONEV) III.<span class="link-icon">🔗</span></a></div>
+        </div>
+        <div class="tl-meta">
+          <div class="tl-place">Bandung</div>
+          <div class="tl-date">2025 – 2026</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-main">
+          <div class="tl-role">Secretary & Co-Founder</div>
+          <div class="tl-org">Orda Kabamsu (North Sumatra Student Association)</div>
+          <div class="tl-desc">Serving as one of the founders of the Regional Organization.</div>
+        </div>
+        <div class="tl-meta">
+          <div class="tl-place">Bandung</div>
+          <div class="tl-date">Present</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-main">
+          <div class="tl-role">Head of Public Relations Division</div>
+          <div class="tl-org">Student Council (OSIS) at MAN Pematangsiantar</div>
+          <div class="tl-desc">Served as a mentor for new students in the 2023/2024 academic year.</div>
+        </div>
+        <div class="tl-meta">
+          <div class="tl-place">Pematang Siantar</div>
+          <div class="tl-date">2022 – 2024</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-main">
+          <div class="tl-role">Top 10 Finalist — Duta Genre Competition</div>
+          <div class="tl-org">Indonesian Genre Forum (Generasi Berencana)</div>
+          <div class="tl-desc">Serving in the GenRe Communication, Information, and Education sector.</div>
+        </div>
+        <div class="tl-meta">
+          <div class="tl-place">Pematangsiantar</div>
+          <div class="tl-date">2023 – 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EXPERIENCE ── -->
+  <div class="section">
+    <h2><span class="dot"></span>Experience</h2>
+    <div class="exp-grid">
+      <div class="exp-item">
+        <a href="https://drive.google.com/file/d/1Kb_JbfGB3JhaJxtGCr6LYtOAqHwp8bt3/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="exp-role clickable-link">Master of Ceremonies<span class="link-icon">🔗</span></a>
+        <div class="exp-org">Computer Science Student Mentoring and Advoschool Event</div>
+        <div class="exp-year">2025</div>
+      </div>
+      <div class="exp-item">
+        <a href="https://drive.google.com/file/d/1H4XzVJxZ2iaMiEJh3Wa01cXdkVG6Qf7N/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="exp-role clickable-link">Vocational High School Computer Science Teacher<span class="link-icon">🔗</span></a>
+        <div class="exp-org">Community Service — Volunteering in a Village</div>
+        <div class="exp-year">2025</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── AWARDS ── -->
+  <div class="section">
+    <h2><span class="dot"></span>Awards & Achievements</h2>
+    <div class="awards-list">
+      <div class="award-item">
+        <div class="award-gem"></div>
+        <div>
+          <div class="award-title">Awardee Beasiswa Unggulan</div>
+          <div class="award-org">Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi (Kemendikbudristek)</div>
+          <div class="award-year">2025 – 2028</div>
+        </div>
+      </div>
+      <div class="award-item">
+        <div class="award-gem"></div>
+        <div>
+          <a href="https://drive.google.com/file/d/1Kp1cqAAJZSJASYUN8tvAq0AHb6n1VStl/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="award-title clickable-link">First Runner-Up — STEAM Storytelling Competition<span class="link-icon">🔗</span></a>
+          <div class="award-org">Indonesian Association of Science and Mathematics Teacher Training Institutions (AMLI)</div>
+          <div class="award-year">2025</div>
+        </div>
+      </div>
+      <div class="award-item">
+        <div class="award-gem"></div>
+        <div>
+          <a href="https://drive.google.com/file/d/1y5N7hKcoX3rWuxf1LfXJkP3R3Qe5Eerl/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="award-title clickable-link">English Olympiad Gold Medalist, A+ Rating<span class="link-icon">🔗</span></a>
+          <div class="award-org">FOSNAS (National Science Olympiad Festival)</div>
+          <div class="award-year">2023</div>
+        </div>
+      </div>
+      <div class="award-item">
+        <div class="award-gem"></div>
+        <div>
+          <a href="https://drive.google.com/file/d/15cjCutW_SBnSQ1vfBqpfDUIXPEa3UAwo/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="award-title clickable-link">Bronze Medalist — English Language Olympics<span class="link-icon">🔗</span></a>
+          <div class="award-org">OSS (Soedirman Science Olympiad)</div>
+          <div class="award-year">2021</div>
+        </div>
+      </div>
+      <div class="award-item">
+        <div class="award-gem"></div>
+        <div>
+          <a href="https://drive.google.com/file/d/17nP2BbLGW7kKFPd2LVL2Tc4JibVF014s/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="award-title clickable-link">Second-Place Winner — English Speech Contest<span class="link-icon">🔗</span></a>
+          <div class="award-org">MAN Pematang Siantar</div>
+          <div class="award-year">2021</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CERTIFICATIONS ── -->
+  <div class="section">
+    <h2><span class="dot"></span>Certifications</h2>
+    <div class="cert-item">
+      <div class="cert-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      </div>
+      <div>
+        <a href="https://drive.google.com/file/d/1GTIzqUMtmL1LoMgjZVXp7U_qwn93_TKo/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-title clickable-link">Microsoft Certified Educator<span class="link-icon">🔗</span></a>
+        <div class="cert-sub">Technology Literacy for Educators — 21st Century Learning Design</div>
+        <div class="cert-year">2025</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      </div>
+      <div>
+        <div class="cert-title">Star Academy TikTok Shop × Tokopedia</div>
+        <div class="cert-sub">Certified as Affiliator Content Creator — Qualified to apply for internship in digital commerce and content creation</div>
+        <div class="cert-year">2025</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SOCIAL MEDIA ── -->
+  <div class="section">
+    <h2><span class="dot"></span>Social Media</h2>
+    <div class="social-row">
+      <a class="social-chip" href="https://www.instagram.com/afnialyaaa?igsh=dXI1c2F3a2g3MTBm" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+        @afnialyaaa
+      </a>
+      <a class="social-chip" href="http://www.tiktok.com/%40afnialyaa_" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/>
+        </svg>
+        @afnialyaa_
+      </a>
+      <a class="social-chip" href="https://www.linkedin.com/in/afni-alya-putri-015508328?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+        </svg>
+        afni alya putri
+      </a>
+    </div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<!-- Print button -->
+<button class="print-btn" onclick="window.print()" title="Print / Save as PDF">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
+  </svg>
+</button>
+
+<script>
+  // Intersection Observer for scroll-reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.section').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = `opacity .6s ease ${i * 0.07}s, transform .6s ease ${i * 0.07}s`;
+    observer.observe(el);
+  });
+
+  // Trigger for elements already in view on load
+  setTimeout(() => {
+    document.querySelectorAll('.section').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }
+    });
+  }, 100);
+</script>
+</body>
+</html>
